@@ -15,11 +15,11 @@ class userDeposit(commands.Cog):
 
     @app_commands.command(name="teller-user-deposit", description="Check the balance of your personal account")
     @app_commands.checks.has_role(configs.bankTellerID)
-    async def userDeposit(self, interaction:discord.Interaction, user:discord.Member, diamondBlocks:int(base=0), diamonds:int, iron:int):
+    async def userDeposit(self, interaction:discord.Interaction, user:discord.Member, diamondblocks:int, diamonds:int, iron:int):
         amount = 0
         db = await dataHandler.mongoCore.pullData()
         marketInfo = await db.market.find_one({"_id": "marketInfo"})
-        amount += diamondBlocks*9*marketInfo["convRate"]
+        amount += diamondblocks*9*marketInfo["convRate"]
         amount += diamonds*marketInfo["convRate"]
         amount += iron
         await dataHandler.balance.user.change(user.id, amount)
