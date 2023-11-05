@@ -2,7 +2,6 @@ import sys
 sys.dont_write_bytecode = True
 import motor
 import motor.motor_asyncio
-import asyncio
 
 with open("mongoURL.txt") as f: url = f.readline()
 

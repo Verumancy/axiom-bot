@@ -4,8 +4,6 @@ import discord
 from discord.ext import commands
 import asyncio
 import os
-import motor
-
 
 class axiomBot(commands.Bot):
     def __init__(self):
@@ -19,9 +17,8 @@ class axiomBot(commands.Bot):
 client = axiomBot()
 
 async def main():
-    async with client:
-        await loadCogs()
-        await client.start(token)
+    await loadCogs()
+    await client.start(token)
 
 @client.event
 async def on_ready():

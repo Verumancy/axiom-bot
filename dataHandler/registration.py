@@ -2,10 +2,9 @@ import sys
 sys.dont_write_bytecode = True
 import motor
 import motor.motor_asyncio
-import asyncio
-import mongoCore
+from dataHandler import mongoCore
 
-async def registerUser(userID:int):
+async def user(userID:int):
     db = await mongoCore.pullData()
     post={
                 "_id": userID,
@@ -17,10 +16,11 @@ async def registerUser(userID:int):
             }
     try: 
         await db.user.insert_one(post)
+        return True
     except:
         print(f"error: failed to register user {userID}")
         
-async def registerCompany(companyName:str, ownerID:int):
+async def company(companyName:str, ownerID:int):
     db = await mongoCore.pullData()
     post = {
                 "_id": companyName,
@@ -32,9 +32,7 @@ async def registerCompany(companyName:str, ownerID:int):
     }
     try: 
         await db.company.insert_one(post)
+        return True
     except:
         print(f"error: failed to register company {companyName}")
-
-asyncio.run(registerCompany("Axiom", 123456789))
-
-    
+        return False
