@@ -2,8 +2,11 @@ import sys
 sys.dont_write_bytecode = True
 import discord
 from discord.ext import commands
+from discord import app_commands
 import asyncio
 import os
+import configs
+import dataHandler
 
 class axiomBot(commands.Bot):
     def __init__(self):
@@ -24,6 +27,10 @@ async def main():
 async def on_ready():
     print("Bot is online")
     await setActivityStatus()
+    commands = client.tree.get_commands()
+    print("---Commands---")
+    for x in commands:
+        print(x.name)
 
 #Import token and mongo connection URL from text files
 with open("token.txt") as f: token = f.readline()
@@ -66,9 +73,11 @@ async def sync(ctx):
     try:        
         await client.tree.sync()
 
-        print(f'Synced')
+        commands = client.tree.get_commands()
+        print("---Syncrd Commands---")
+        for x in commands:
+            print(x.name)
     except Exception as e:
         print(e)
-
 
 asyncio.run(main())
